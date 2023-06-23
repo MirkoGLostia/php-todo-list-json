@@ -9,6 +9,7 @@ export default {
 
       newQuest: {
         quest: "",
+        status: "not done"
       }
     };
   },
@@ -47,6 +48,23 @@ export default {
           this.questList = data;
         });
 
+    },
+
+    questDone(index) {
+
+      const url = 'http://localhost/php-todo-list-json/php/questDone.php';
+      const data = { "index": index };
+      const headers = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+
+      axios.post(url, data, headers)
+        .then(res => {
+
+          const data = res.data;
+          this.questList = data;
+        });
+
     }
 
   },
@@ -68,7 +86,8 @@ export default {
 
   <ul>
     <li v-for="(element, i) in questList" :key="i">
-      {{ element.quest }}
+      <span :class="element.status === 'not done' ? '' : 'done'" @click="questDone(i)">{{ element.quest
+      }}</span>
       <button type="button" style="background-color: white; color: red; padding: 10px" @click="delteQuest(i)">
         X
       </button>
@@ -79,8 +98,12 @@ export default {
     <label for="quest"> Quest </label>
     <input type="text" name="quest" v-model="newQuest.quest">
     <br />
-    <input type="submit" value="ADD TO LIST">
+    <button type="submit"> To do </button>
   </form>
 </template>
 
-<style></style>
+<style lang="scss">
+.done {
+  text-decoration: line-through;
+}
+</style>
