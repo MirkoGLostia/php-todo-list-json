@@ -32,13 +32,29 @@ export default {
         })
     },
 
+    delteQuest(index) {
+
+      const url = 'http://localhost/php-todo-list-json/php/deleteQuest.php';
+      const data = { "index": index };
+      const headers = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+
+      axios.post(url, data, headers)
+        .then(res => {
+
+          const data = res.data;
+          this.questList = data;
+        });
+
+    }
+
   },
   mounted() {
 
     axios.get("http://localhost/php-todo-list-json/php/questList.php")
       .then(res => {
 
-        console.log("ciao");
         const data = res.data;
         this.questList = data;
       });
@@ -53,6 +69,9 @@ export default {
   <ul>
     <li v-for="(element, i) in questList" :key="i">
       {{ element.quest }}
+      <button type="button" style="background-color: white; color: red; padding: 10px" @click="delteQuest(i)">
+        X
+      </button>
     </li>
   </ul>
 

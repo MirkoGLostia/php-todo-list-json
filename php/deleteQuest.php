@@ -4,12 +4,12 @@ header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Headers: X-Requested-With");
 header('Content-Type: application/json');
 
-$quest = $_POST;
+$index = $_POST["index"];
 
 $listElementStr = file_get_contents("data.json");
 $quests = json_decode($listElementStr);
 
-$quests[] = $quest;
+array_splice($quests, $index, 1);
 
 $listElementStr = json_encode($quests);
 
