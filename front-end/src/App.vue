@@ -9,7 +9,6 @@ export default {
 
       newQuest: {
         quest: "",
-        status: "not done"
       }
     };
   },
@@ -86,7 +85,7 @@ export default {
 
   <ul>
     <li v-for="(element, i) in questList" :key="i">
-      <span :class="element.status === 'not done' ? '' : 'done'" @click="questDone(i)">{{ element.quest
+      <span :class="element.status ? 'done' : ''" @click="questDone(i)">{{ element.quest
       }}</span>
       <button type="button" style="background-color: white; color: red; padding: 10px" @click="delteQuest(i)">
         X

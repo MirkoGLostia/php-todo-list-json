@@ -5,6 +5,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 header('Content-Type: application/json');
 
 $quest = $_POST;
+$quest["status"] = false;
 
 $listElementStr = file_get_contents("data.json");
 $quests = json_decode($listElementStr);

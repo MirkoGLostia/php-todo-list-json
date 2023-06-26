@@ -9,13 +9,7 @@ $index = $_POST["index"];
 $listElementStr = file_get_contents("data.json");
 $quests = json_decode($listElementStr);
 
-if ($quests[$index]->status == 'not done') {
-
-    $quests[$index]->status = 'done';
-} 
-else {
-    $quests[$index]->status = 'not done';
-}
+$quests[$index]->status = !$quests[$index]->status;
 
 $listElementStr = json_encode($quests);
 
